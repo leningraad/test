@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.video_row.view.*
 
 class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
 
@@ -11,8 +12,8 @@ class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
         return 3
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) {
-        val layoutInflater = LayoutInflater.from(parent?.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
         val cellForRow = layoutInflater.inflate(R.layout.video_row, parent, false)
         return CustomViewHolder(cellForRow)
     }
@@ -20,10 +21,8 @@ class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
     }
-
 }
 
 class CustomViewHolder(v: View): RecyclerView.ViewHolder(v) {
-
 
 }
