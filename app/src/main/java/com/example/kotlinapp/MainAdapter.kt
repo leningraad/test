@@ -11,7 +11,7 @@ class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
         return 3
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
         val cellForRow = layoutInflater.inflate(R.layout.video_row, parent, false)
         return CustomViewHolder(cellForRow)
