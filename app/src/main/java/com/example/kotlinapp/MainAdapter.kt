@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.video_row.view.*
 class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
-        return 3
+        return 15
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
