@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.video_row.view.*
 
-class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
+class MainAdapter(private val response: CallResponse): RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemCount(): Int {
-        return 15
+        return response.videos?.count() ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -20,6 +21,9 @@ class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
 
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+        val video = response.videos?.get(position)
+        holder.itemView.textView_video_title.text = video?.name ?: ""
+        Picasso.get().load(video?.imageUrl).into(holder.itemView.imageView)
     }
 }
 

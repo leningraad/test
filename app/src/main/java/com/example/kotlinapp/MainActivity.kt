@@ -3,7 +3,9 @@ package com.example.kotlinapp
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
@@ -15,11 +17,9 @@ class MainActivity : AppCompatActivity() {
 
 //        recyclerView_main.setBackgroundColor(Color.BLUE)
 
-        recyclerView_main.layoutManager = LinearLayoutManager(this)
-        recyclerView_main.adapter = MainAdapter()
-
         fetchJson()
     }
+
     fun fetchJson(){
         println("attempting to fetch JSON")
 
@@ -31,16 +31,22 @@ class MainActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println(body)
-
+                val resp = Gson().fromJson(body, CallResponse::class.java)
+                runOnUiThread {
+                    setRecycler(resp)
+                    progressBar.isVisible = false
+                }
             }
 
             override fun onFailure(call: Call, e: IOException) {
                 println("Failed to execute request")
             }
         })
+    }
 
-
+    fun setRecycler(response: CallResponse) {
+        recyclerView_main.layoutManager = LinearLayoutManager(this)
+        recyclerView_main.adapter = MainAdapter(response)
     }
 }
 
